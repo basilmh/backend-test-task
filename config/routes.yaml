@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+api_post_show:
+    path:       /calculate-price
+    controller: App\Controller\Oder\ProductController::calculate
+    methods:    POST
+
+api_post_edit:
+    path:       /purchase
+    controller: App\Controller\Oder\ProductController::purchase
+    methods:    POST
