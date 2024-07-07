@@ -2,7 +2,6 @@
 /**
  * @author    Vasyl Minikh <mhbasil1@gmail.com>
  * @copyright 2024
- *
  */
 declare(strict_types=1);
 
@@ -24,7 +23,6 @@ final class ProductControllerPurchaseTest extends WebTestCase
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-
     public function testWithToken(): void
     {
         $client = $this->createAuthenticatedApiClient('purchase');
@@ -32,7 +30,7 @@ final class ProductControllerPurchaseTest extends WebTestCase
             'POST',
             self::URL,
             [
-                "product" => 1,
+                'product' => 1,
                 'taxNumber' => 'IT12345678900',
                 'couponCode' => 'D15',
                 'paymentProcessor' => 'paypal',

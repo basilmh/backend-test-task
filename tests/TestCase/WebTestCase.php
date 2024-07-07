@@ -28,7 +28,7 @@ class WebTestCase extends BaseWebTestCase
     protected function createAuthenticatedApiClient(string $tokenId = 'calculate'): KernelBrowser
     {
         $client = static::createClient([], [
-            'CONTENT_TYPE' => 'application/json'
+            'CONTENT_TYPE' => 'application/json',
         ]);
         $csrfToken = $this->generateCsrfToken($client, $tokenId);
         $this->csrfToken = $csrfToken;

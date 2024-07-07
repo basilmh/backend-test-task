@@ -3,6 +3,7 @@ USER_ID=$(shell id -u)
 DC = @USER_ID=$(USER_ID) docker compose
 DC_RUN = ${DC} run --rm sio_test
 DC_EXEC = ${DC} exec sio_test
+VENDOR = ./vendor
 
 PHONY: help
 .DEFAULT_GOAL := help
@@ -34,6 +35,19 @@ console: ## Login in console.
 
 install: ## Install dependencies without running the whole application.
 	${DC_RUN} composer install
+
+php-cs-fixer:
+	${VENDOR}/bin/php-cs-fixer fix src/  --verbose
+
+phpstan:
+	${VENDOR}/bin/phpstan analyse src --level 4
+
+coding-standards:
+	${VENDOR}/bin/phpcs -p --colors
+	${VENDOR}/bin/phpmd src/ text phpmd.xml
+
+run-test:
+	sh ./bin/run-tests.sh
 
 success-message:
 	@echo "You can now access the application at http://localhost:8337"

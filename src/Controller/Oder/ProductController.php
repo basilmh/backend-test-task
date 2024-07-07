@@ -2,25 +2,22 @@
 /**
  * @author    Vasyl Minikh <mhbasil1@gmail.com>
  * @copyright 2024
- *
  */
 declare(strict_types=1);
 
 namespace App\Controller\Oder;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller used to calculate and purchase
+ * Controller used to calculate and purchase.
  */
 final class ProductController extends AbstractController
 {
     /**
-     * Calculate Product price
+     * Calculate Product price.
      */
     public function calculate(Request $request): Response
     {
@@ -38,12 +35,12 @@ final class ProductController extends AbstractController
         return $this->json([
             'product' => $product,
             'taxNumber' => $taxNumber,
-            'couponCode' => $couponCode
+            'couponCode' => $couponCode,
         ]);
     }
 
     /**
-     * Purchase
+     * Purchase.
      */
     public function purchase(Request $request): Response
     {
@@ -61,7 +58,7 @@ final class ProductController extends AbstractController
         return $this->json([
             'product' => $product,
             'taxNumber' => $taxNumber,
-            'couponCode' => $couponCode
+            'couponCode' => $couponCode,
         ]);
     }
 }

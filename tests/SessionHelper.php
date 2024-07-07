@@ -2,7 +2,6 @@
 /**
  * @author    Vasyl Minikh <mhbasil1@gmail.com>
  * @copyright 2024
- *
  */
 declare(strict_types=1);
 
@@ -50,7 +49,7 @@ trait SessionHelper
     {
         $session = $this->getSession($client);
 
-        /** @var UriSafeTokenGenerator $tokenGenerator  */
+        /** @var UriSafeTokenGenerator $tokenGenerator */
         $tokenGenerator = static::getContainer()->get('security.csrf.token_generator');
 
         $csrfToken = $tokenGenerator->generateToken();
