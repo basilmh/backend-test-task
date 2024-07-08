@@ -6,7 +6,7 @@ Content-Type: application/json
 {
   "product": 1,
   "taxNumber": "DE123456789",
-  "couponCode": "D15",
+  "couponCode": "MINUS1",
   "_token": "some_generated_data"
 }
 
@@ -18,7 +18,7 @@ Content-Type: application/json
 {
   "product": 1,
   "taxNumber": "IT12345678900",
-  "couponCode": "D15",
+  "couponCode": "MINUS5",
   "paymentProcessor": "paypal",
   "_token": "some_generated_data"
 }

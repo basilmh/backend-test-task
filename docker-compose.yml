@@ -13,6 +13,8 @@ services:
             - APP_ENV=dev
         depends_on:
             - database
+        networks:
+            - symfony_app
     database:
         image: postgres:${POSTGRES_VERSION:-13}-alpine
         ports:
@@ -24,5 +26,9 @@ services:
             POSTGRES_USER: ${POSTGRES_USER:-symfony}
         volumes:
             - db-data:/var/lib/postgresql/data:rw
+        networks:
+            - symfony_app
 volumes:
     db-data:
+networks:
+    symfony_app:

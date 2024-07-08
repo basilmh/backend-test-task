@@ -9,6 +9,7 @@ namespace App\Entity;
 
 use App\Repository\CouponRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon
@@ -19,6 +20,7 @@ class Coupon
     private ?int $id = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\Unique]
     private ?string $code = null;
 
     #[ORM\Column]

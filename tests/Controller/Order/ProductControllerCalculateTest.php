@@ -20,6 +20,7 @@ final class ProductControllerCalculateTest extends WebTestCase
         $client->request('POST', self::URL);
 
         $response = $client->getResponse();
+
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
