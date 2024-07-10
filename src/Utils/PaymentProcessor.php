@@ -47,6 +47,7 @@ class PaymentProcessor
                 'errors' => ['value' => $price, 'message' => $exception->getMessage()],
             ];
         }
+
         return $message;
     }
 }

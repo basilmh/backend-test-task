@@ -16,6 +16,11 @@ class WebTestCase extends BaseWebTestCase
 {
     use SessionHelper;
 
+    protected const array REQUEST_HEADERS = [
+        'HTTP_ACCEPT' => 'application/ld+json',
+        'CONTENT_TYPE' => 'application/json',
+    ];
+
     protected ?string $csrfToken = null;
 
     protected function createAnonymousApiClient(): KernelBrowser

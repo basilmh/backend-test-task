@@ -39,6 +39,10 @@ class TaxRepository extends ServiceEntityRepository
 
     public function findByTaxPrefix(string $value): ?Tax
     {
+        $taxCode = substr($value, 0, 2);
+        if (!preg_match('/^[A-Z]{2}+$/', $taxCode, $match)) {
+            return null;
+        }
         $taxes = $this->findByTaxes(substr($value, 0, 2));
         if (empty($taxes)) {
             return null;

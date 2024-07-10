@@ -51,8 +51,6 @@ final class ProductController extends AbstractController
         $taxNumber = $request->getTaxNumber();
         $couponCode = $request->getCouponCode();
 
-        $price = $this->priceProcessor->calculatePrice($productId, $taxNumber, $couponCode);
-
         if ($errors) {
             return $this->json([
                 'product' => $productId,
@@ -61,6 +59,8 @@ final class ProductController extends AbstractController
                 'messages' => $errors,
             ], Response::HTTP_BAD_REQUEST);
         }
+
+        $price = $this->priceProcessor->calculatePrice($productId, $taxNumber, $couponCode);
 
         return $this->json([
             'product' => $productId,
@@ -126,6 +126,10 @@ final class ProductController extends AbstractController
         $request = $this->requestStack->getCurrentRequest();
         /** @var string|null $token */
         $token = $request->get('_token');
+
+        if (isset($_ENV['TEST_TOKEN']) && 'dev' == $_ENV['APP_ENV']) {
+            return $token === $_ENV['TEST_TOKEN'];
+        }
 
         return $this->isCsrfTokenValid($tokenId, $token);
     }

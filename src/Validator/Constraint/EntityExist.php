@@ -14,12 +14,18 @@ use Symfony\Component\Validator\Constraint;
 #[Attribute(Attribute::TARGET_PROPERTY)]
 final class EntityExist extends Constraint
 {
-    public $message = 'Entity "%entity%" with property "%property%": "%value%" does not exist.';
-    public $property = 'id';
-    public $entity;
+    public string $message = 'Entity "%entity%" with property "%property%": "%value%" does not exist.';
+    public string $property = 'id';
+    public mixed $entity;
 
-    public function __construct($entity = null, $property = null, $message = null, $options = null, ?array $groups = null, $payload = null)
-    {
+    public function __construct(
+        mixed $entity = null,
+        ?string $property = null,
+        ?string $message = null,
+        mixed $options = null,
+        ?array $groups = null,
+        mixed $payload = null
+    ) {
         parent::__construct($options, $groups, $payload);
 
         $this->entity = $entity ?? $this->entity;

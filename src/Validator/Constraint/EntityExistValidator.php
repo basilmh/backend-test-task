@@ -24,7 +24,7 @@ final class EntityExistValidator extends ConstraintValidator
         $this->entityManager = $entityManager;
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof EntityExist) {
             throw new LogicException(sprintf('You can only pass %s constraint to this validator.', EntityExist::class));

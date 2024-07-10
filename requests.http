@@ -1,4 +1,4 @@
-### Calculate Price
+### Calculate Price Rigth data
 POST http://127.0.0.1:8337/calculate-price
 Accept: application/json
 Content-Type: application/json
@@ -6,20 +6,56 @@ Content-Type: application/json
 {
   "product": 1,
   "taxNumber": "DE123456789",
-  "couponCode": "MINUS1",
+  "couponCode": "MINUS5",
   "_token": "some_generated_data"
 }
 
-### Execute Purchase
+### Calculate Price Wrong Tax Number
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE12345678",
+  "couponCode": "MINUS5",
+  "_token": "some_generated_data"
+}
+
+### Calculate Price Wrong Tax Number
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "MINUS51",
+  "_token": "some_generated_data"
+}
+
+### Execute Purchase Wrong Data
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 10,
+  "taxNumber": "FAKETAX",
+  "couponCode": "MINUS57",
+  "paymentProcessor": "wrong",
+  "_token": "some_generated_data"
+}
+
+### Execute Purchase Right Data
 POST http://127.0.0.1:8337/purchase
 Accept: application/json
 Content-Type: application/json
 
 {
   "product": 1,
-  "taxNumber": "IT12345678900",
+  "taxNumber": "DE123456789",
   "couponCode": "MINUS5",
   "paymentProcessor": "paypal",
   "_token": "some_generated_data"
 }
-

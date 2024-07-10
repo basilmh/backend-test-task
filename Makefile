@@ -47,7 +47,7 @@ coding-standards:
 	${VENDOR}/bin/phpmd src/ text phpmd.xml
 
 run-test:
-	sh ./bin/run-tests.sh
+	${DC_EXEC} sh ./bin/run-tests.sh
 
 success-message:
 	@echo "You can now access the application at http://localhost:8337"

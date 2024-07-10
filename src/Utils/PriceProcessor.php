@@ -41,10 +41,6 @@ class PriceProcessor
         $tax = $this->taxRepository->findByTaxPrefix($taxNumber);
         $coupon = $this->couponRepository->findOneByCouponCode($couponCode);
 
-        if (null === $product || null === $tax) {
-            throw new Exception('Something went wrong');
-        }
-
         $price = $product->getPrice();
 
         $price = $this->priceWithCoupon($coupon, $price);
