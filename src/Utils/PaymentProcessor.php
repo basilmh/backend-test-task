@@ -7,40 +7,28 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
+use App\Payment\PaymentManager;
 use Exception;
-use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
-use Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class PaymentProcessor
 {
-    private StripePaymentProcessor $stripePaymentProcessor;
-    private PaypalPaymentProcessor $paypalPaymentProcessor;
-
     public function __construct(
-        StripePaymentProcessor $stripePaymentProcessor,
-        PaypalPaymentProcessor $paypalPaymentProcessor
+        private ContainerBagInterface $params,
+        private PaymentManager $paymentManager
     ) {
-        $this->stripePaymentProcessor = $stripePaymentProcessor;
-        $this->paypalPaymentProcessor = $paypalPaymentProcessor;
     }
 
-    public function processPayment(int $price, string $paymentProcessor): array
+    public function processPayment(int $price, string $paymentName): array
     {
         $message = [];
 
         try {
-            switch ($paymentProcessor) {
-                case 'stripe':
-                    $this->paypalPaymentProcessor->pay($price);
-                    break;
-                case 'paypal':
-                    if (!$this->stripePaymentProcessor->processPayment((float) $price / 10)) {
-                        throw new Exception('There was an error during payment');
-                    }
-                    break;
-                default:
-                    throw new Exception('Payment processor is not supported');
-            }
+            $paymentProcessors = $this->params->get('app.payments');
+            $paymentProcessorName = $paymentProcessors[$paymentName] ?? '';
+            $paymentProcessor = $this->paymentManager->getProvider($paymentProcessorName);
+
+            $paymentProcessor->makePayment($price);
         } catch (Exception $exception) {
             $message = [
                 'message' => 'payment_failed',
