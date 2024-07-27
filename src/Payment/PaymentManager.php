@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 #[AllowDynamicProperties]
 class PaymentManager
 {
+    private array $availablePaymentServices = [];
     public function __construct(
         #[TaggedIterator('app.payment_services')]
         iterable $paymentServices
@@ -32,5 +33,25 @@ class PaymentManager
             }
         }
         throw new Exception("Payment service $name not found");
+    }
+
+    public function setAvailablePaymentServices(array $availablePaymentServices): void
+    {
+        $this->availablePaymentServices = $availablePaymentServices;
+    }
+    public function getAvailablePaymentServices(): array
+    {
+        return $this->availablePaymentServices;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getPaymentServices(string $paymentName): PaymentInterface
+    {
+        $paymentProcessors = $this->getAvailablePaymentServices();
+        $paymentProcessorName = $paymentProcessors[$paymentName] ?? '';
+
+        return $this->getProvider($paymentProcessorName);
     }
 }

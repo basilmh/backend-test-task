@@ -9,12 +9,10 @@ namespace App\Utils;
 
 use App\Payment\PaymentManager;
 use Exception;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class PaymentProcessor
 {
     public function __construct(
-        private ContainerBagInterface $params,
         private PaymentManager $paymentManager
     ) {
     }
@@ -24,9 +22,7 @@ class PaymentProcessor
         $message = [];
 
         try {
-            $paymentProcessors = $this->params->get('app.payments');
-            $paymentProcessorName = $paymentProcessors[$paymentName] ?? '';
-            $paymentProcessor = $this->paymentManager->getProvider($paymentProcessorName);
+            $paymentProcessor = $this->paymentManager->getPaymentServices($paymentName);
 
             $paymentProcessor->makePayment($price);
         } catch (Exception $exception) {

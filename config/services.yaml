@@ -33,9 +33,13 @@ services:
         autowire: true
 
     _instanceof:
-        # services whose classes are instances of PaymentClientInterface will be tagged automatically
+        # services whose classes are instances of PaymentInterface will be tagged automatically
         App\Payment\PaymentInterface:
             tags: ['app.payment_services']
+
+    App\Payment\PaymentManager:
+        calls:
+            - ['setAvailablePaymentServices', ['%app.payments%']]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
